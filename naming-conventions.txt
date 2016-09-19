@@ -1,0 +1,6 @@
+Plugin Name -- Percussion Coach Daily Workout
+Text domain -- perc-coach-daily-workout
+Function prefix -- perc_coach_daily_workout
+Class prefix -- Perc_Coach_Daily_Workout
+Root namespace -- perccoach\dailyworkout
+Filter Prefix -- perc_coach_daily_workout
