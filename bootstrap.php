@@ -24,11 +24,12 @@ spl_autoload_register(function ($class) {
  */
 add_action( 'init', 'perc_coach_daily_workout_register_cpt', 0 );
 add_action( 'init', 'perc_coach_daily_workout_load_cmb2', 2 );
-//will run main class here shortly
-//
+add_action( 'init', function(){
+	new start();
+});
 
 /**
- * Add Book
+ * Add Workout
  */
 // Register Custom Book
 function perc_coach_daily_workout_register_cpt() {
