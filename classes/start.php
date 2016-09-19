@@ -13,4 +13,13 @@ class start {
 	 */
 	const SLUG = 'perc-coach-daily-workout';
 
+	/**
+	 * Defines the post type's name
+	 *
+	 * @since 0.0.1
+	 */
+	const POST_TYPE = 'pc_daily_workout';
+
 }
+
+

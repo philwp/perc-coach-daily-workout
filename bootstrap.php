@@ -1,5 +1,6 @@
 <?php
 
+use \perccoach\dailyworkout\start;
 /**
  * Register Autoloader
  */
@@ -78,7 +79,7 @@ function perc_coach_daily_workout_register_cpt() {
 		'publicly_queryable'    => true,
 		'capability_type'       => 'page',
 	);
-	register_post_type( 'post_type', $args );
+	register_post_type( start::POST_TYPE, $args );
 
 }
 
