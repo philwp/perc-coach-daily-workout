@@ -2,6 +2,8 @@
 
 namespace perccoach\dailyworkout;
 
+use perccoach\dailyworkout\workout;
+
 class crud {
 
 	/**

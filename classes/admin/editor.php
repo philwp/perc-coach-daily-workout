@@ -27,15 +27,10 @@ class editor {
 	public function run(){
 		$this->make_boxes();
 		$this->add_fields();
-		$this->run_ajax();
-	}
-
-
-	public function load_scripts() {
-		wp_enqueue_script( 'pw_dw_cmb', plugins_url( '../../assets/js/pc-dw-cmb.js', __FILE__ ), array( 'jquery' ), 1, true );
-
 
 	}
+
+
 
 	/**
 	 * Create metabox object
@@ -121,19 +116,7 @@ class editor {
 
 	// Metabox for Workout
 
-		$main_section = $this->cmb2_workout->add_field([
-			'id'          => meta::SECTION2,
-    		'type'        => 'group',
-    		'description' => __( 'Enter exercises for daily workout', 'cmb2' ),
-    		// 'repeatable'  => false, // use false if you want non-repeatable group
-		    'options'     => array(
-		        'group_title'   => __( 'Exercise {#}', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
-		        'add_button'    => __( 'Add Another Exercise', 'cmb2' ),
-		        'remove_button' => __( 'Remove Exercise', 'cmb2' ),
-		        'sortable'      => true, // beta
-		        // 'closed'     => true, // true to have the groups closed by default
-    		),
-		]);
+
 
 
 		$available_exercises = get_posts( array( 'post_type' => 'pc_dw_exercise' ) );
@@ -146,98 +129,37 @@ class editor {
 		}
 
 
-		$this->cmb2_workout->add_group_field( meta::SECTION2, array(
-		    'name'             => 'Name',
+		$this->cmb2_workout->add_field( array(
+		    'name'             => 'Exercise',
 		    'desc'             => 'Select an exercise',
-		    'id'               => 'exercise_select',
+		    'id'               => meta::EXERCISES,
 		    'type'             => 'select',
 		    'show_option_none' => true,
 		    'default'          => 'custom',
+		    'repeatable'	   => true,
 		    'options'          => $exercise_array,
 
 		) );
 
-		$this->cmb2_workout->add_group_field( meta::SECTION2, array(
-		    'name'    => 'Test Multi Checkbox',
-		    'desc'    => 'field description (optional)',
-		    'id'      => 'wiki_test_multicheckbox',
-		    'type'    => 'multicheck',
-		    'options' => $this->set_options(),
-		) );
+		// $this->cmb2_workout->add_group_field( meta::SECTION2, array(
+		//     'name'    => 'Test Multi Checkbox',
+		//     'desc'    => 'field description (optional)',
+		//     'id'      => 'wiki_test_multicheckbox',
+		//     'type'    => 'multicheck',
+		//     'options' => $this->set_options(),
+		// ) );
 
 	}
 
-	public function ajax_process_request() {
-	// first check if data is being sent and that it is the data we want
-  	if ( isset( $_POST["post_var"] ) ) {
-		// now set our response var equal to that of the POST var (this will need to be sanitized based on what you're doing with with it)
-		$post_id = $_POST["post_var"];
 
-		$meta_array = get_post_meta( $post_id, 'pcdw_section1' );
-		$sections = $meta_array[0];
-		//var_dump($sections);
-		$response = [];
-		foreach( $sections as $section ) {
-		 	$response[ $section[ 'pcdw_audio_id' ] ] = $section[ 'pcdw_tempo' ];
-			//var_dump($section[pcdw_audio_id]);
-		 }
-
-		var_dump($response);
-		// send the response back to the front end
-		echo $response;
-		wp_die();
-	}
 }
 
-	private function run_ajax() {
-		add_action('wp_ajax_test_response', $this->return_tempos() );
-
-	}
 
 
-	private function set_options() {
-		global $post;
 
-		$post_id = isset( $_GET['post'] ) ? absint( $_GET['post'] ) : false;
-		if( false == $post_id && isset( $post->ID )){
-			$post_id = $post->ID;
-		}
-		return $this->get_tempos( $post_id );
-	}
 
-	public function get_tempos( $exercise = '' ) {
-		if ( empty( $exercise ) ) {
-			return '';
-		}
-		$meta_array = get_post_meta( $post_id, 'pcdw_section1' );
-		$sections = $meta_array[0];
-		$tempos = [];
-		foreach( $sections as $section ) {
-		 	$tempos[ $section[ 'pcdw_audio_id' ] ] = $section[ 'pcdw_tempo' ];
-		 }
-		return $tempos;
-		//wp_die();
-	}
 
-	public function return_tempos() {
-		global $post;
-		$value = $_POST["post_var"];
-		$safe_value = esc_attr( $value );
-		$tempos = $this->get_tempos( $safe_value );
-		// $tempos = array(
-		// 	2 => 2,
-		// 	3 => 3);
-		if( ! $tempos ){
-			wp_send_json_error( array( 'msg' => 'Value inaccessible') );
-		}
-		$output = '';
-		foreach( $tempos as $tempo => $tempo_id ){
-			$output .= sprintf( "<option value='%s'>%s</option>", $tempo, $tempo_id );
-		 }
-		if( ! empty( $output ) ){
-			wp_send_json_success( $output );
-		}
-		wp_send_json_error();
-		wp_die( );
-	}
-}
+
+
+
+

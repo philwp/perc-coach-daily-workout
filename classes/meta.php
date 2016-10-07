@@ -23,6 +23,8 @@ class meta {
 
 	const TEMPO = 'pcdw_tempo';
 
+	const EXERCISES = 'pcdw_exercise_select';
+
 
 
 }
