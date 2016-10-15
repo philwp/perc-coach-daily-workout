@@ -14,7 +14,7 @@ if ( !defined( 'ABSPATH' ) ) {
 
 define( 'PERC_COACH_DAILY_WORKOUT_PATH', dirname( __FILE__ ) );
 define( 'PERC_COACH_DAILY_WORKOUT_URL', plugin_dir_url(__FILE__ ) );
-
+define( 'PERC_COACH_DAILY_WORKOUT_VER', '0.0.1' );
 /**
  * Hooks to setup plugin
  */
@@ -58,7 +58,3 @@ function perc_coach_daily_workout_bootstrap(){
 function perc_coach_daily_workout_notice_load_plugin_textdomain() {
 	load_plugin_textdomain( 'perc-coach-daily-workout', FALSE, basename( dirname( __FILE__ ) ) . '/lang/' );
 }
-
-
-
-

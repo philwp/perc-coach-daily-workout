@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: josh
- * Date: 9/13/16
- * Time: 7:25 PM
- */
 
 namespace perccoach\dailyworkout\admin;
-
 
 use perccoach\dailyworkout\meta;
 use perccoach\dailyworkout\start;
@@ -17,6 +10,10 @@ class editor {
 	 * @var \CMB2
 	 */
 	protected $cmb2_workout;
+
+	/**
+	 * @var \CMB2
+	 */
 	protected $cmb2_exercise;
 
 	/**
@@ -29,7 +26,6 @@ class editor {
 		$this->add_fields();
 
 	}
-
 
 
 	/**
@@ -70,10 +66,10 @@ class editor {
     		'id'      => meta::SHEET_MUSIC,
     		'type'    => 'file',
 		    'options' => array(
-		        'url' => false, // Hide the text input for the url
+		        'url' => false,
 		    ),
 		    'text'    => array(
-		        'add_upload_file_text' => 'Add File' // Change upload button text.
+		        'add_upload_file_text' => 'Add File'
 		    ),
 		) );
 
@@ -81,13 +77,11 @@ class editor {
 			'id'          => meta::SECTION1,
     		'type'        => 'group',
     		'description' => __( 'Enter tracks for exercise', 'cmb2' ),
-    		// 'repeatable'  => false, // use false if you want non-repeatable group
 		    'options'     => array(
-		        'group_title'   => __( 'Track {#}', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
+		        'group_title'   => __( 'Track {#}', 'cmb2' ),
 		        'add_button'    => __( 'Add Another Track', 'cmb2' ),
 		        'remove_button' => __( 'Remove Track', 'cmb2' ),
-		        'sortable'      => true, // beta
-		        // 'closed'     => true, // true to have the groups closed by default
+		        'sortable'      => true
     		),
 
 		]);
@@ -99,34 +93,18 @@ class editor {
 			'repeatable' => false,
 			'type'       => 'file',
 			'options' => array(
-		        'url' => false, // Hide the text input for the url
+		        'url' => false,
 		    ),
 		    'text'    => array(
-		        'add_upload_file_text' => 'Add Audio File' // Change upload button text.
+		        'add_upload_file_text' => 'Add Audio File'
 		    ),
 
 		]);
 		$this->cmb2_exercise->add_group_field( meta::SECTION1, array(
 		    'name'    => 'Tempo',
-		    //'desc'    => 'field description (optional)',
-		    //'default' => 'standard value (optional)',
 		    'id'      => meta::TEMPO,
 		    'type'    => 'text_small'
 		) );
-
-	// Metabox for Workout
-
-
-
-
-		$available_exercises = get_posts( array( 'post_type' => 'pc_dw_exercise' ) );
-		$exercise_array = [];
-
-		foreach ($available_exercises as $exercise) {
-
-			$exercise_array[$exercise->ID] = $exercise->post_title;
-
-		}
 
 
 		$this->cmb2_workout->add_field( array(
@@ -137,29 +115,25 @@ class editor {
 		    'show_option_none' => true,
 		    'default'          => 'custom',
 		    'repeatable'	   => true,
-		    'options'          => $exercise_array,
+		    'options'          => $this->available_exercises( start::$POST_TYPES[1] ),
 
 		) );
 
-		// $this->cmb2_workout->add_group_field( meta::SECTION2, array(
-		//     'name'    => 'Test Multi Checkbox',
-		//     'desc'    => 'field description (optional)',
-		//     'id'      => 'wiki_test_multicheckbox',
-		//     'type'    => 'multicheck',
-		//     'options' => $this->set_options(),
-		// ) );
+	}
+
+	protected function available_exercises( $post_type ) {
+
+		$available_exercises = get_posts( [ 'post_type' => $post_type ] );
+		$exercise_array = [];
+
+		foreach ( $available_exercises as $exercise ) {
+
+			$exercise_array[ $exercise->ID ] = $exercise->post_title;
+
+		}
+
+		return $exercise_array;
 
 	}
 
-
 }
-
-
-
-
-
-
-
-
-
-

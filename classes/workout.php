@@ -1,14 +1,13 @@
 <?php
 
-//create a workout from a group of one or more exersices
-//
-//  Title
-//  Exercises
 
+namespace perccoach\dailyworkout;
 
-namespace perccoach\dailyworkout\workout;
+use perccoach\dailyworkout\singular;
+use perccoach\dailyworkout\meta;
+use perccoach\dailyworkout\start;
 
-class workout {
+class workout extends singular {
 
 	/**
 	 * @var string
@@ -31,16 +30,9 @@ class workout {
 	protected $post;
 
 
-	/**
-	 * workout constructor.
-	 *
-	 * @param int $id Optional. Pass ID to retrive from DB, else use setters
-	 */
-	public function __construct( $id = 0 ) {
-		if( 0 < absint( $id ) ){
-			$this->get_from_db( $id );
-		}
-	}
+
+
+
 
 	/**
 	 * Set properties by querying DB
@@ -85,34 +77,27 @@ class workout {
 		}
 	}
 
-	/**
-	 * Delete workout
-	 *
-	 * @return bool
-	 */
-	public function delete(){
-		if ( isset( $this->post ) ) {
-			$deleted = wp_delete_post( $this->post->ID );
-			if( false == $deleted ){
-				return false;
-			}else{
-				return true;
-			}
-		}
 
-		return false;
+
+	/**
+	 * Get title
+	 *
+	 * @return string
+	 */
+	public function get_title(){
+		return $this->title;
 	}
 
 	/**
-	 * Set the title
+	 * Set  content
 	 *
-	 * @param string $title
+	 * @param  string $content
 	 *
 	 * @return bool
 	 */
-	public function set_title( $title ){
-		if( is_string( $this->title ) ){
-			$this->title = $title;
+	public function set_content( $content ){
+		if( is_string( $content ) ){
+			$this->content = $content;
 			return true;
 		}
 
@@ -120,7 +105,16 @@ class workout {
 	}
 
 	/**
-	 * Get the exrcises
+	 * @return string
+	 */
+	public function get_content(){
+		return $this->content;
+	}
+
+
+
+	/**
+	 * Get the exercises
 	 *
 	 * @return array
 	 */
@@ -128,5 +122,43 @@ class workout {
 		return $this->exercises;
 	}
 
+	/**
+	 * Set the author
+	 *
+	 * @param string $author The author of the book
+	 *
+	 * @return bool
+	 */
+	public function set_exercises( $exercises ){
+		if( is_array( $exercises ) ){
+			$this->exercises = $exercises;
+			return true;
+		}
+
+		return false;
+
+	}
+
+
+	/**
+	 * Get current values as
+	 *
+	 * @return array
+	 */
+	public function to_array(){
+		$data = [];
+		foreach( get_object_vars( $this ) as $prop => $value ){
+			if( 'post' != $prop ) {
+				$data[ $prop ] = $value;
+			}
+
+		}
+
+		$data[ 'ID' ] = $this->post->ID;
+		//$data[ 'cover' ] = $this->get_cover_url();
+		$data[ 'link' ] = get_permalink( $this->post );
+
+	 	return $data;
+	}
 
 }

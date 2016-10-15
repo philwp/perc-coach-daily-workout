@@ -2,7 +2,7 @@
 
 namespace perccoach\dailyworkout;
 
-
+use perccoach\dailyworkout\workout;
 
 class factory {
 
@@ -29,7 +29,6 @@ class factory {
 		$exercise = new exercise( $post->ID );
 		return $exercise;
 	}
-
 
 
 }

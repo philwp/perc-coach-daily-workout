@@ -142,4 +142,3 @@ function perc_coach_daily_workout_register_cpt() {
 function perc_coach_daily_workout_load_cmb2(){
 	include_once  __DIR__ . '/includes/cmb2/init.php';
 }
-

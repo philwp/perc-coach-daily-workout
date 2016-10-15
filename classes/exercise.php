@@ -18,7 +18,21 @@ class exercise {
 	 * @var array
 	 */
 	protected $audio;
+	/**
+	 * @var string
+	 */
+	protected $title;
 
+	/**
+	 * @var string
+	 */
+	protected $content;
+
+
+	/**
+	 * @var \WP_Post
+	 */
+	protected $post;
 
 	/**
 	 * exercise constructor.
@@ -34,7 +48,7 @@ class exercise {
 	/**
 	 * Set properties by querying DB
 	 *
-	 * @param int $id Book ID
+	 * @param int $id Exercise ID
 	 */
 	protected function get_from_db( $id ){
 		$this->post = get_post( $id );
