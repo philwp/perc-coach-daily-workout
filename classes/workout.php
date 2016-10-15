@@ -9,27 +9,11 @@ use perccoach\dailyworkout\start;
 
 class workout extends singular {
 
-	/**
-	 * @var string
-	 */
-	protected $title;
-
-	/**
-	 * @var string
-	 */
-	protected $content;
 
 	/**
 	 * @var array
 	 */
 	protected $exercises;
-
-	/**
-	 * @var \WP_Post
-	 */
-	protected $post;
-
-
 
 
 
@@ -78,41 +62,6 @@ class workout extends singular {
 	}
 
 
-
-	/**
-	 * Get title
-	 *
-	 * @return string
-	 */
-	public function get_title(){
-		return $this->title;
-	}
-
-	/**
-	 * Set  content
-	 *
-	 * @param  string $content
-	 *
-	 * @return bool
-	 */
-	public function set_content( $content ){
-		if( is_string( $content ) ){
-			$this->content = $content;
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_content(){
-		return $this->content;
-	}
-
-
-
 	/**
 	 * Get the exercises
 	 *
@@ -123,9 +72,9 @@ class workout extends singular {
 	}
 
 	/**
-	 * Set the author
+	 * Set the exercises
 	 *
-	 * @param string $author The author of the book
+	 * @param stri
 	 *
 	 * @return bool
 	 */

@@ -2,48 +2,21 @@
 
 namespace perccoach\dailyworkout;
 
-class exercise {
+class exercise extends singular {
 
 	/**
 	 * @var int
 	 */
 	protected $sheet_music;
 
-	/**
-	 * @var string
-	 */
-	protected $title;
 
 	/**
 	 * @var array
 	 */
 	protected $audio;
-	/**
-	 * @var string
-	 */
-	protected $title;
-
-	/**
-	 * @var string
-	 */
-	protected $content;
 
 
-	/**
-	 * @var \WP_Post
-	 */
-	protected $post;
 
-	/**
-	 * exercise constructor.
-	 *
-	 * @param int $id Optional. Pass ID to retrive from DB, else use setters
-	 */
-	public function __construct( $id = 0 ) {
-		if( 0 < absint( $id ) ){
-			$this->get_from_db( $id );
-		}
-	}
 
 	/**
 	 * Set properties by querying DB
@@ -57,6 +30,10 @@ class exercise {
 			$this->set_audio( get_post_meta( $this->post->ID, meta::AUDIO ) );
 
 		}
+
+	}
+
+	public function save(){
 
 	}
 

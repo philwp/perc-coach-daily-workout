@@ -5,6 +5,21 @@ namespace perccoach\dailyworkout;
 
 abstract class singular {
 
+	/**
+	 * @var string
+	 */
+	protected $title;
+
+	/**
+	 * @var string
+	 */
+	protected $content;
+
+	/**
+	 * @var \WP_Post
+	 */
+	protected $post;
+
 	 /**
 	 * workout constructor.
 	 *
@@ -23,6 +38,15 @@ abstract class singular {
 
 		return false;
 	}
+
+	abstract protected function get_from_db( $id );
+		//include getters for meta here in child classes
+
+
+	abstract function save();
+		//include seeters for meta here in child classes
+
+
 
 	/**
 	 * Delete item
@@ -58,6 +82,39 @@ abstract class singular {
 
 		return false;
 	}
+
+	/**
+	 * Get title
+	 *
+	 * @return string
+	 */
+	public function get_title(){
+		return $this->title;
+	}
+
+	/**
+	 * Set  content
+	 *
+	 * @param  string $content
+	 *
+	 * @return bool
+	 */
+	public function set_content( $content ){
+		if( is_string( $content ) ){
+			$this->content = $content;
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_content(){
+		return $this->content;
+	}
+
 
 
 }
