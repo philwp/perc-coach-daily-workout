@@ -16,8 +16,6 @@ class workout extends singular {
 	protected $exercises;
 
 
-
-
 	/**
 	 * Set properties by querying DB
 	 *
