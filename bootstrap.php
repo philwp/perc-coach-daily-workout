@@ -72,6 +72,8 @@ function perc_coach_daily_workout_register_cpt() {
 		'public'                => true,
 		'show_ui'               => true,
 		'show_in_menu'          => true,
+		'show_in_rest'			=> true,
+		'rest_base'				=> 'workouts',
 		'menu_position'         => 5,
 		'show_in_admin_bar'     => true,
 		'show_in_nav_menus'     => true,
@@ -123,6 +125,8 @@ function perc_coach_daily_workout_register_cpt() {
 		'menu_position'         => 5,
 		'show_in_admin_bar'     => true,
 		'show_in_nav_menus'     => true,
+		'show_in_rest'			=> true,
+		'rest_base'				=> 'exercises',
 		'can_export'            => true,
 		'has_archive'           => true,
 		'exclude_from_search'   => false,
@@ -142,3 +146,5 @@ function perc_coach_daily_workout_register_cpt() {
 function perc_coach_daily_workout_load_cmb2(){
 	include_once  __DIR__ . '/includes/cmb2/init.php';
 }
+
+//die(var_dump(get_post_meta( 173, 'pcdw_sheet_music' )));

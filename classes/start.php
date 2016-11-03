@@ -4,8 +4,8 @@
 namespace perccoach\dailyworkout;
 
 use perccoach\dailyworkout\admin\editor;
-use perccoach\dailyworkout\api\boot;
-use perccoach\dailyworkout\api\routes\workouts;
+use perccoach\dailyworkout\apimeta;
+
 
 
 class start {
@@ -24,9 +24,10 @@ class start {
 	 */
 	public static $POST_TYPES = array( 'pc_dw_workout', 'pc_dw_exercise' );
 
-	const API_NAMESPACE = 'daily-workout-api/v1';
 
 	protected $editor;
+
+	protected $api_meta;
 
 
 	public function __construct() {
@@ -34,7 +35,8 @@ class start {
 			$this->start_admin();
 		}
 
-		add_action( 'rest_api_init', [ $this, 'boot_api' ] );
+		$this->add_api_meta();
+
 	}
 
 	protected function start_admin(){
@@ -47,15 +49,10 @@ class start {
 		add_action( 'cmb2_admin_init', [ $this->editor, 'run' ] );
 	}
 
-	/**
-	 * Boot up API
-	 *
-	 * @uses "rest_api_init"
-	 */
-	public function boot_api(){
-		$api = new boot( self::API_NAMESPACE );
-		$api->add_route( new workouts() );
-		$api->add_routes();
+	protected function add_api_meta() {
+		$this->api_meta = new apimeta();
+		add_action( 'rest_api_init', [ $this->api_meta, 'run' ] );
 	}
+
 
 }

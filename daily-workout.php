@@ -3,7 +3,7 @@
   Plugin Name: Percussion Coach Daily Workout
   Version: 0.0.1
   License: GPL V2
-  Text Domain: learnjosh-book-review
+  Text Domain:
   Domain Path: /languages
 */
 
