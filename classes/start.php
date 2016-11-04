@@ -6,7 +6,7 @@ namespace perccoach\dailyworkout;
 use perccoach\dailyworkout\admin\editor;
 use perccoach\dailyworkout\apimeta;
 use perccoach\dailyworkout\shortcodes;
-
+use perccoach\dailyworkout\scripts;
 
 class start {
 
@@ -31,6 +31,8 @@ class start {
 
 	protected $shortcodes;
 
+	protected $scripts;
+
 
 	public function __construct() {
 		if( is_admin() ){
@@ -39,6 +41,7 @@ class start {
 
 		$this->add_api_meta();
 		$this->add_shortcodes();
+		$this->add_scripts();
 
 	}
 
@@ -60,6 +63,11 @@ class start {
 	protected function add_shortcodes() {
 		$this->shortcodes = new shortcodes();
 		$this->shortcodes->register();
+	}
+
+	protected function add_scripts() {
+		$this->scripts = new scripts( PERC_COACH_DAILY_WORKOUT_URL, PERC_COACH_DAILY_WORKOUT_VER );
+
 	}
 
 
