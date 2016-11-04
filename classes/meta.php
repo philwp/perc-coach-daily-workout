@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: josh
- * Date: 9/13/16
- * Time: 7:31 PM
- */
 
 namespace perccoach\dailyworkout;
 
@@ -24,6 +18,8 @@ class meta {
 	const TEMPO = 'pcdw_tempo';
 
 	const EXERCISES = 'pcdw_exercise_select';
+
+	const SHORTCODE = 'dailyworkout';
 
 
 
