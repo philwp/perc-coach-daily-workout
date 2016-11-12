@@ -17,7 +17,7 @@ class App extends React.Component {
 
     };
     let postId = document.querySelector("#dailyworkout-wrapper").dataset.dwid;
-    fetch('http://percussioncoach.dev/wp-json/wp/v2/workouts/' + postId)
+    fetch('http://thepercussioncoach.com/wp-json/wp/v2/workouts/' + postId)
       .then((response) =>  response.json()).then((responseData) => {
         this.setState({workout: responseData});
       })

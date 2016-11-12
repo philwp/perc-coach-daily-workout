@@ -21489,7 +21489,7 @@
 
 	    };
 	    var postId = document.querySelector("#dailyworkout-wrapper").dataset.dwid;
-	    fetch('http://percussioncoach.dev/wp-json/wp/v2/workouts/' + postId).then(function (response) {
+	    fetch('http://thepercussioncoach.com/wp-json/wp/v2/workouts/' + postId).then(function (response) {
 	      return response.json();
 	    }).then(function (responseData) {
 	      _this.setState({ workout: responseData });
