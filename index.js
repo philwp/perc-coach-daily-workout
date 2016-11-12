@@ -21505,7 +21505,7 @@
 	      var _this2 = this;
 
 	      var postId = document.querySelector("#dailyworkout-wrapper").dataset.dwid;
-	      return fetch('http://percussioncoach.dev/wp-json/wp/v2/workouts/' + postId).then(function (response) {
+	      return fetch('http://thepercussioncoach.com/wp-json/wp/v2/workouts/' + postId).then(function (response) {
 	        return response.json();
 	      }).then(function (responseData) {
 	        _this2.setState({ workout: responseData });
