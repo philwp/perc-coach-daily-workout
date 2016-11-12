@@ -46,50 +46,19 @@
 
 	'use strict';
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
 	var _reactDom = __webpack_require__(34);
 
-	var _reactDom2 = _interopRequireDefault(_reactDom);
+	var _App = __webpack_require__(172);
+
+	var _App2 = _interopRequireDefault(_App);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	alert('working');
-
-	var HelloWorld = function (_React$Component) {
-		_inherits(HelloWorld, _React$Component);
-
-		function HelloWorld() {
-			_classCallCheck(this, HelloWorld);
-
-			return _possibleConstructorReturn(this, (HelloWorld.__proto__ || Object.getPrototypeOf(HelloWorld)).apply(this, arguments));
-		}
-
-		_createClass(HelloWorld, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'h1',
-					null,
-					'Fuck Yeah'
-				);
-			}
-		}]);
-
-		return HelloWorld;
-	}(_react2.default.Component);
-
-	_reactDom2.default.render(_react2.default.createElement(HelloWorld, null), document.querySelector('#dailyworkout'));
+	(0, _reactDom.render)(_react2.default.createElement(_App2.default, null), document.querySelector('#dailyworkout'));
 
 /***/ },
 /* 1 */
@@ -21457,6 +21426,1368 @@
 
 	module.exports = ReactDOMNullInputValuePropHook;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _TrackList = __webpack_require__(173);
+
+	var _TrackList2 = _interopRequireDefault(_TrackList);
+
+	var _Player = __webpack_require__(174);
+
+	var _Player2 = _interopRequireDefault(_Player);
+
+	var _Timer = __webpack_require__(176);
+
+	var _Timer2 = _interopRequireDefault(_Timer);
+
+	var _TrackPicker = __webpack_require__(177);
+
+	var _TrackPicker2 = _interopRequireDefault(_TrackPicker);
+
+	var _TheTitle = __webpack_require__(175);
+
+	var _TheTitle2 = _interopRequireDefault(_TheTitle);
+
+	var _AudioPlayer = __webpack_require__(178);
+
+	var _AudioPlayer2 = _interopRequireDefault(_AudioPlayer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var App = function (_React$Component) {
+	  _inherits(App, _React$Component);
+
+	  function App() {
+	    _classCallCheck(this, App);
+
+	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+
+	    _this.getWorkoutFromApiAsync = _this.getWorkoutFromApiAsync.bind(_this);
+	    _this.state = {
+	      workout: {}
+
+	    };
+	    var postId = document.querySelector("#dailyworkout-wrapper").dataset.dwid;
+	    fetch('http://percussioncoach.dev/wp-json/wp/v2/workouts/' + postId).then(function (response) {
+	      return response.json();
+	    }).then(function (responseData) {
+	      _this.setState({ workout: responseData });
+	    }).catch(function (err) {
+	      return console.log(err);
+	    });
+	    return _this;
+	  }
+
+	  _createClass(App, [{
+	    key: 'getWorkoutFromApiAsync',
+	    value: function getWorkoutFromApiAsync() {
+	      var _this2 = this;
+
+	      var postId = document.querySelector("#dailyworkout-wrapper").dataset.dwid;
+	      return fetch('http://percussioncoach.dev/wp-json/wp/v2/workouts/' + postId).then(function (response) {
+	        return response.json();
+	      }).then(function (responseData) {
+	        _this2.setState({ workout: responseData });
+	      }).catch(function (err) {
+	        return console.log(err);
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+
+	      var playlist = [];
+	      var exercises = this.state.workout.exercises;
+	      //let title = this.state.workout.title.rendered;
+	      for (var exercise in exercises) {
+	        var numberOfExercises = exercises[exercise].tracks.length;
+	        console.log("number of exercises: " + numberOfExercises + " for " + exercise);
+
+	        for (var i = 0; i < numberOfExercises; i++) {
+	          var exerciseObj = {};
+	          exerciseObj.displayText = exercises[exercise]['title'];
+	          var theTracks = exercises[exercise].tracks[i];
+	          exerciseObj.url = theTracks.pcdw_audio;
+	          exerciseObj.tempo = theTracks.pcdw_tempo;
+	          exerciseObj.sheetMusic = exercises[exercise]['sheet_music'];
+	          playlist.push(exerciseObj);
+	        }
+	      }
+	      console.log(playlist);
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(_AudioPlayer2.default, { playlist: playlist })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return App;
+	}(_react2.default.Component);
+
+	exports.default = App;
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TrackList = function (_React$Component) {
+		_inherits(TrackList, _React$Component);
+
+		function TrackList() {
+			_classCallCheck(this, TrackList);
+
+			return _possibleConstructorReturn(this, (TrackList.__proto__ || Object.getPrototypeOf(TrackList)).apply(this, arguments));
+		}
+
+		_createClass(TrackList, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'h1',
+						null,
+						'Track List'
+					),
+					_react2.default.createElement(
+						'ul',
+						null,
+						_react2.default.createElement(
+							'li',
+							null,
+							'Track 1'
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'Track 2'
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'Track 3'
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'Track 4'
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'Track 5'
+						)
+					)
+				);
+			}
+		}]);
+
+		return TrackList;
+	}(_react2.default.Component);
+
+	exports.default = TrackList;
+
+/***/ },
+/* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _TheTitle = __webpack_require__(175);
+
+	var _TheTitle2 = _interopRequireDefault(_TheTitle);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Player = function (_React$Component) {
+		_inherits(Player, _React$Component);
+
+		function Player() {
+			_classCallCheck(this, Player);
+
+			return _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).apply(this, arguments));
+		}
+
+		_createClass(Player, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'player' },
+					_react2.default.createElement(_TheTitle2.default, { theTitle: this.props.exerciseTitle }),
+					_react2.default.createElement(
+						'p',
+						null,
+						this.props.tempo
+					),
+					_react2.default.createElement('img', { src: this.props.sheetMusicSource }),
+					_react2.default.createElement(
+						'p',
+						null,
+						'Play Button'
+					)
+				);
+			}
+		}]);
+
+		return Player;
+	}(_react2.default.Component);
+
+	exports.default = Player;
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var TheTitle = function TheTitle(props) {
+		return _react2.default.createElement(
+			'div',
+			null,
+			_react2.default.createElement(
+				'h2',
+				null,
+				props.theTitle
+			)
+		);
+	};
+
+	exports.default = TheTitle;
+
+/***/ },
+/* 176 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Timer = function (_React$Component) {
+		_inherits(Timer, _React$Component);
+
+		function Timer() {
+			_classCallCheck(this, Timer);
+
+			return _possibleConstructorReturn(this, (Timer.__proto__ || Object.getPrototypeOf(Timer)).apply(this, arguments));
+		}
+
+		_createClass(Timer, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'h2',
+						null,
+						'Timer'
+					)
+				);
+			}
+		}]);
+
+		return Timer;
+	}(_react2.default.Component);
+
+	exports.default = Timer;
+
+/***/ },
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TrackPicker = function (_React$Component) {
+		_inherits(TrackPicker, _React$Component);
+
+		function TrackPicker() {
+			_classCallCheck(this, TrackPicker);
+
+			return _possibleConstructorReturn(this, (TrackPicker.__proto__ || Object.getPrototypeOf(TrackPicker)).apply(this, arguments));
+		}
+
+		_createClass(TrackPicker, [{
+			key: "render",
+			value: function render() {
+				return _react2.default.createElement(
+					"div",
+					null,
+					_react2.default.createElement(
+						"p",
+						null,
+						"TrackPicker"
+					),
+					_react2.default.createElement(
+						"p",
+						null,
+						_react2.default.createElement(
+							"a",
+							{ className: "button" },
+							"Previous"
+						),
+						"  ",
+						_react2.default.createElement(
+							"a",
+							{ className: "button" },
+							"Next"
+						)
+					)
+				);
+			}
+		}]);
+
+		return TrackPicker;
+	}(_react2.default.Component);
+
+	exports.default = TrackPicker;
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _arrayFindIndex = __webpack_require__(179);
+
+	var _arrayFindIndex2 = _interopRequireDefault(_arrayFindIndex);
+
+	var _classnames = __webpack_require__(180);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _TrackList = __webpack_require__(173);
+
+	var _TrackList2 = _interopRequireDefault(_TrackList);
+
+	var _helpers = __webpack_require__(181);
+
+	__webpack_require__(182);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var AudioPlayer = function (_React$Component) {
+	  _inherits(AudioPlayer, _React$Component);
+
+	  function AudioPlayer(props) {
+	    _classCallCheck(this, AudioPlayer);
+
+	    /* true if the user is currently dragging the mouse
+	     * to seek a new track position
+	     */
+	    var _this = _possibleConstructorReturn(this, (AudioPlayer.__proto__ || Object.getPrototypeOf(AudioPlayer)).call(this, props));
+
+	    _this.seekInProgress = false;
+	    // index matching requested track (whether track has loaded or not)
+	    _this.currentTrackIndex = 0;
+
+	    _this.defaultState = {
+	      /* activeTrackIndex will change to match
+	       * this.currentTrackIndex once metadata has loaded
+	       */
+	      activeTrackIndex: -1,
+	      // indicates whether audio player should be paused
+	      paused: true,
+	      /* elapsed time for current track, in seconds -
+	       * DISPLAY ONLY! the actual elapsed time may
+	       * not match up if we're currently seeking, since
+	       * the new time is visually previewed before the
+	       * audio seeks.
+	       */
+	      displayedTime: 0
+	    };
+
+	    _this.state = _this.defaultState;
+
+	    // html audio element used for playback
+	    _this.audio = null;
+	    _this.audioProgressContainer = null;
+	    /* bounding rectangle used for calculating seek
+	     * position from mouse/touch coordinates
+	     */
+	    _this.audioProgressBoundingRect = null;
+
+	    // EventListeners to create on mount and remove on unmount
+	    _this.seekReleaseListener = null;
+	    _this.resizeListener = null;
+	    return _this;
+	  }
+
+	  _createClass(AudioPlayer, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      var seekReleaseListener = this.seekReleaseListener = function (e) {
+	        return _this2.seek(e);
+	      };
+	      window.addEventListener('mouseup', seekReleaseListener);
+	      document.addEventListener('touchend', seekReleaseListener);
+	      var resizeListener = this.resizeListener = function () {
+	        return _this2.fetchAudioProgressBoundingRect();
+	      };
+	      window.addEventListener('resize', resizeListener);
+	      resizeListener();
+
+	      var audio = this.audio = document.createElement('audio');
+	      audio.preload = 'metadata';
+	      audio.addEventListener('ended', function () {
+	        var gapLengthInSeconds = _this2.props.gapLengthInSeconds || 0;
+	        setTimeout(function () {
+	          return _this2.skipToNextTrack();
+	        }, gapLengthInSeconds * 1000);
+	      });
+	      audio.addEventListener('timeupdate', function () {
+	        return _this2.handleTimeUpdate();
+	      });
+	      audio.addEventListener('loadedmetadata', function () {
+	        _this2.setState({
+	          activeTrackIndex: _this2.currentTrackIndex
+	        });
+	      });
+	      audio.addEventListener('play', function () {
+	        _this2.setState({
+	          paused: false
+	        });
+	      });
+	      audio.addEventListener('stalled', function () {
+	        return _this2.togglePause(true);
+	      });
+	      if (this.props.playlist && this.props.playlist.length) {
+	        this.updateSource();
+	        if (this.props.autoplay) {
+	          var delay = this.props.autoplayDelayInSeconds || 0;
+	          setTimeout(function () {
+	            return _this2.togglePause(false);
+	          }, delay * 1000);
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      // remove event listeners bound outside the scope of our component
+	      window.removeEventListener('mouseup', this.seekReleaseListener);
+	      document.removeEventListener('touchend', this.seekReleaseListener);
+	      window.removeEventListener('resize', this.resizeListener);
+
+	      /* pause the audio element before dereferencing it
+	       * (we can't know when garbage collection will run)
+	       */
+	      this.audio.pause();
+	      this.audio = null;
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      var newPlaylist = nextProps.playlist;
+	      if (!newPlaylist || !newPlaylist.length) {
+	        if (this.audio) {
+	          this.audio.src = '';
+	        }
+	        this.currentTrackIndex = 0;
+	        return this.setState(this.defaultState);
+	      }
+
+	      var oldPlaylist = this.props.playlist;
+
+	      var currentTrackUrl = ((oldPlaylist || [])[this.currentTrackIndex] || {}).url;
+	      this.currentTrackIndex = (0, _arrayFindIndex2.default)(newPlaylist, function (track) {
+	        return track.url && currentTrackUrl === track.url;
+	      });
+	      /* if the track we're already playing is in the new playlist, update the
+	       * activeTrackIndex.
+	       */
+	      if (this.currentTrackIndex !== -1) {
+	        this.setState({
+	          activeTrackIndex: this.currentTrackIndex
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      /* if we loaded a new playlist and reset the current track marker, we
+	       * should load up the first one.
+	       */
+	      if (this.audio && this.currentTrackIndex === -1) {
+	        this.skipToNextTrack(false);
+	      }
+	    }
+	  }, {
+	    key: 'togglePause',
+	    value: function togglePause(value) {
+	      if (!this.audio) {
+	        return;
+	      }
+	      var pause = typeof value === 'boolean' ? value : !this.state.paused;
+	      if (pause) {
+	        this.audio.pause();
+	        return this.setState({
+	          paused: true
+	        });
+	      }
+	      if (!this.props.playlist || !this.props.playlist.length) {
+	        return;
+	      }
+	      try {
+	        this.audio.play();
+	      } catch (error) {
+	        logError(error);
+	        var warningMessage = 'Audio playback failed at ' + new Date().toLocaleTimeString() + '! (Perhaps autoplay is disabled in this browser.)';
+	        logWarning(warningMessage);
+	      }
+	    }
+	  }, {
+	    key: 'skipToNextTrack',
+	    value: function skipToNextTrack(shouldPlay) {
+	      var _this3 = this;
+
+	      if (!this.audio) {
+	        return;
+	      }
+	      this.audio.pause();
+	      if (!this.props.playlist || !this.props.playlist.length) {
+	        return;
+	      }
+	      var i = this.currentTrackIndex + 1;
+	      if (i >= this.props.playlist.length) {
+	        i = 0;
+	      }
+	      this.currentTrackIndex = i;
+	      this.setState({
+	        activeTrackIndex: -1,
+	        displayedTime: 0
+	      }, function () {
+	        _this3.updateSource();
+	        var shouldPause = typeof shouldPlay === 'boolean' ? !shouldPlay : false;
+	        _this3.togglePause(shouldPause);
+	      });
+	    }
+	  }, {
+	    key: 'backSkip',
+	    value: function backSkip() {
+	      if (!this.props.playlist || !this.props.playlist.length) {
+	        return;
+	      }
+	      var audio = this.audio;
+	      var stayOnBackSkipThreshold = this.props.stayOnBackSkipThreshold;
+	      if (isNaN(stayOnBackSkipThreshold)) {
+	        stayOnBackSkipThreshold = 5;
+	      }
+	      if (audio.currentTime >= stayOnBackSkipThreshold) {
+	        return audio.currentTime = 0;
+	      }
+	      var i = this.currentTrackIndex - 1;
+	      if (i < 0) {
+	        i = this.props.playlist.length - 1;
+	      }
+	      this.currentTrackIndex = i - 1;
+	      this.skipToNextTrack();
+	    }
+	  }, {
+	    key: 'updateSource',
+	    value: function updateSource() {
+	      this.audio.src = this.props.playlist[this.currentTrackIndex].url;
+	    }
+	  }, {
+	    key: 'fetchAudioProgressBoundingRect',
+	    value: function fetchAudioProgressBoundingRect() {
+	      this.audioProgressBoundingRect = this.audioProgressContainer.getBoundingClientRect();
+	    }
+	  }, {
+	    key: 'handleTimeUpdate',
+	    value: function handleTimeUpdate() {
+	      if (!this.seekInProgress && this.audio) {
+	        this.setState({
+	          displayedTime: this.audio.currentTime
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'adjustDisplayedTime',
+	    value: function adjustDisplayedTime(event) {
+	      if (!this.props.playlist || !this.props.playlist.length) {
+	        return;
+	      }
+	      // make sure we don't select stuff in the background while seeking
+	      if (event.type === 'mousedown' || event.type === 'touchstart') {
+	        this.seekInProgress = true;
+	        document.body.classList.add('noselect');
+	      } else if (!this.seekInProgress) {
+	        return;
+	      }
+	      /* we don't want mouse handlers to receive the event
+	       * after touch handlers if we're seeking.
+	       */
+	      event.preventDefault();
+	      var boundingRect = this.audioProgressBoundingRect;
+	      var isTouch = event.type.slice(0, 5) === 'touch';
+	      var pageX = isTouch ? event.targetTouches.item(0).pageX : event.pageX;
+	      var position = pageX - boundingRect.left - document.body.scrollLeft;
+	      var containerWidth = boundingRect.width;
+	      var progressPercentage = position / containerWidth;
+	      this.setState({
+	        displayedTime: progressPercentage * this.audio.duration
+	      });
+	    }
+	  }, {
+	    key: 'seek',
+	    value: function seek(event) {
+	      /* this function is activated when the user lets
+	       * go of the mouse, so if .noselect was applied
+	       * to the document body, get rid of it.
+	       */
+	      document.body.classList.remove('noselect');
+	      if (!this.seekInProgress) {
+	        return;
+	      }
+	      /* we don't want mouse handlers to receive the event
+	       * after touch handlers if we're seeking.
+	       */
+	      event.preventDefault();
+	      this.seekInProgress = false;
+	      var displayedTime = this.state.displayedTime;
+	      if (isNaN(displayedTime)) {
+	        return;
+	      }
+	      this.audio.currentTime = displayedTime;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this4 = this;
+
+	      var activeIndex = this.state.activeTrackIndex;
+	      var displayText = this.props.playlist ? activeIndex < 0 ? null : this.props.playlist[activeIndex].displayText : 'Please load a playlist';
+	      var tempo = this.props.playlist ? activeIndex < 0 ? null : this.props.playlist[activeIndex].tempo : 'Please add a tempo';
+	      var sheetMusic = this.props.playlist ? activeIndex < 0 ? null : this.props.playlist[activeIndex].sheetMusic : 'Please load an img';
+	      var displayedTime = this.state.displayedTime;
+	      var duration = this.audio && this.audio.duration || 0;
+
+	      var elapsedTime = (0, _helpers.convertToTime)(displayedTime);
+	      var fullTime = (0, _helpers.convertToTime)(duration);
+	      var timeRatio = elapsedTime + ' / ' + fullTime;
+
+	      var progressBarWidth = displayedTime / duration * 100 + '%';
+
+	      var adjustDisplayedTime = function adjustDisplayedTime(e) {
+	        return _this4.adjustDisplayedTime(e);
+	      };
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'audio_sheet_music' },
+	          _react2.default.createElement('img', { src: sheetMusic })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          {
+	            id: 'audio_player',
+	            className: 'audio_player',
+	            title: displayText,
+	            style: this.props.style
+	          },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'audio_controls' },
+	            _react2.default.createElement(
+	              'div',
+	              {
+	                id: 'skip_button',
+	                className: (0, _classnames2.default)('skip_button back audio_button', {
+	                  'hidden': this.props.hideBackSkip
+	                }),
+	                onClick: function onClick() {
+	                  return _this4.backSkip();
+	                }
+	              },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'skip_button_inner' },
+	                _react2.default.createElement('div', { className: 'right_facing_triangle' }),
+	                _react2.default.createElement('div', { className: 'right_facing_triangle' })
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              {
+	                id: 'play_pause_button',
+	                className: (0, _classnames2.default)('play_pause_button', 'audio_button', {
+	                  'paused': this.state.paused
+	                }),
+	                onClick: function onClick() {
+	                  return _this4.togglePause();
+	                }
+	              },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'play_pause_inner' },
+	                _react2.default.createElement('div', { className: 'left' }),
+	                _react2.default.createElement('div', { className: 'right' }),
+	                _react2.default.createElement('div', { className: 'triangle_1' }),
+	                _react2.default.createElement('div', { className: 'triangle_2' })
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              {
+	                id: 'skip_button',
+	                className: 'skip_button audio_button',
+	                onClick: function onClick() {
+	                  return _this4.skipToNextTrack();
+	                }
+	              },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'skip_button_inner' },
+	                _react2.default.createElement('div', { className: 'right_facing_triangle' }),
+	                _react2.default.createElement('div', { className: 'right_facing_triangle' })
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            {
+	              id: 'audio_progress_container',
+	              className: 'audio_progress_container',
+	              ref: function ref(_ref) {
+	                return _this4.audioProgressContainer = _ref;
+	              },
+	              onMouseDown: adjustDisplayedTime,
+	              onMouseMove: adjustDisplayedTime,
+	              onTouchStart: adjustDisplayedTime,
+	              onTouchMove: adjustDisplayedTime
+	            },
+	            _react2.default.createElement('div', {
+	              id: 'audio_progress',
+	              className: 'audio_progress',
+	              style: { width: progressBarWidth } }),
+	            _react2.default.createElement(
+	              'div',
+	              { id: 'audio_progress_overlay', className: 'audio_progress_overlay' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'audio_info_marquee' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { id: 'audio_info', className: 'audio_info noselect', draggable: 'false' },
+	                  displayText,
+	                  ' Tempo: ',
+	                  tempo,
+	                  'bpm'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                {
+	                  id: 'audio_time_progress',
+	                  className: 'audio_time_progress noselect',
+	                  draggable: 'false'
+	                },
+	                timeRatio
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement('div', { id: 'tracklist_container', className: 'tracklist' })
+	      );
+	    }
+	  }]);
+
+	  return AudioPlayer;
+	}(_react2.default.Component);
+
+	AudioPlayer.propTypes = {
+	  playlist: _react2.default.PropTypes.array,
+	  autoplay: _react2.default.PropTypes.bool,
+	  autoplayDelayInSeconds: _react2.default.PropTypes.number,
+	  gapLengthInSeconds: _react2.default.PropTypes.number,
+	  hideBackSkip: _react2.default.PropTypes.bool,
+	  stayOnBackSkipThreshold: _react2.default.PropTypes.number,
+	  style: _react2.default.PropTypes.object
+	};
+
+	exports.default = AudioPlayer;
+
+/***/ },
+/* 179 */
+/***/ function(module, exports) {
+
+	'use strict';
+	module.exports = function (arr, predicate, ctx) {
+		if (typeof Array.prototype.findIndex === 'function') {
+			return arr.findIndex(predicate, ctx);
+		}
+
+		if (typeof predicate !== 'function') {
+			throw new TypeError('predicate must be a function');
+		}
+
+		var list = Object(arr);
+		var len = list.length;
+
+		if (len === 0) {
+			return -1;
+		}
+
+		for (var i = 0; i < len; i++) {
+			if (predicate.call(ctx, list[i], i, list)) {
+				return i;
+			}
+		}
+
+		return -1;
+	};
+
+
+/***/ },
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2016 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+
+	(function () {
+		'use strict';
+
+		var hasOwn = {}.hasOwnProperty;
+
+		function classNames () {
+			var classes = [];
+
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+
+				var argType = typeof arg;
+
+				if (argType === 'string' || argType === 'number') {
+					classes.push(arg);
+				} else if (Array.isArray(arg)) {
+					classes.push(classNames.apply(null, arg));
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				}
+			}
+
+			return classes.join(' ');
+		}
+
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ },
+/* 181 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.convertToTime = convertToTime;
+	/* converts given number of seconds to standard time display format
+	 * http://goo.gl/kEvnKn
+	 */
+	function convertToTime(number) {
+	  var mins = Math.floor(number / 60);
+	  var secs = (number % 60).toFixed();
+	  return '' + (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
+	}
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(183);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(185)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./audioPlayer.scss", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./audioPlayer.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(184)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "@keyframes marquee1 {\n  0% {\n    transform: translateX(100%); }\n  100% {\n    transform: translateX(-100%); } }\n\n@keyframes marquee2 {\n  0% {\n    transform: translateX(100%); }\n  100% {\n    transform: translateX(-200%); } }\n\n@keyframes marquee3 {\n  0% {\n    transform: translateX(100%); }\n  100% {\n    transform: translateX(-300%); } }\n\n@keyframes marquee4 {\n  0% {\n    transform: translateX(100%); }\n  100% {\n    transform: translateX(-400%); } }\n\n@keyframes marquee5 {\n  0% {\n    transform: translateX(100%); }\n  100% {\n    transform: translateX(-500%); } }\n\n.noselect {\n  cursor: default;\n  /* http://stackoverflow.com/a/4407335/4956731 */\n  -webkit-touch-callout: none;\n  /* iOS Safari */\n  -webkit-user-select: none;\n  /* Chrome/Safari/Opera */\n  -khtml-user-select: none;\n  /* Konqueror */\n  -moz-user-select: none;\n  /* Firefox */\n  -ms-user-select: none;\n  /* IE/Edge */\n  user-select: none;\n  /* non-prefixed version, currently\n                                  not supported by any browser */ }\n\n.hidden {\n  display: none !important; }\n\n.audio_player {\n  display: flex;\n  flex-direction: row;\n  height: 50px;\n  background-color: #333;\n  width: 100%;\n  /* http://codepen.io/aralon/pen/NqGWXZ */ }\n  .audio_player .audio_controls {\n    display: flex;\n    flex-direction: row;\n    margin-left: 10px;\n    margin-right: 10px; }\n  .audio_player .audio_progress_container {\n    position: relative;\n    height: 100%;\n    flex-grow: 1; }\n  .audio_player .audio_progress {\n    background-color: #4a4a4a;\n    height: 100%;\n    width: 0;\n    will-change: width; }\n  .audio_player .audio_progress_overlay {\n    position: absolute;\n    top: 0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between; }\n  .audio_player .audio_info_marquee {\n    overflow: hidden;\n    /* to make room for .audio_time_progress */\n    width: calc(100% - 180px);\n    display: flex;\n    flex-direction: row;\n    align-items: center;\n    margin-left: 10px; }\n  .audio_player .audio_info {\n    display: none;\n    width: 100%;\n    white-space: nowrap;\n    word-break: break-all;\n    margin: 0;\n    font-size: 19.2px;\n    color: #fff; }\n  .audio_player .audio_time_progress {\n    margin-right: 20px;\n    align-self: center;\n    color: #fff;\n    font-size: 23px; }\n  .audio_player .audio_button {\n    padding-left: 11px;\n    padding-right: 11px;\n    margin-left: 4px;\n    margin-right: 4px;\n    cursor: pointer;\n    align-self: center;\n    display: flex;\n    justify-content: center;\n    flex-direction: column;\n    height: 50px; }\n  .audio_player .play_pause_button .play_pause_inner {\n    height: 30px;\n    width: 30px;\n    overflow: hidden;\n    position: relative; }\n  .audio_player .play_pause_button .left {\n    height: 100%;\n    float: left;\n    background-color: #fff;\n    width: 36%;\n    transition: all 0.25s ease;\n    overflow: hidden; }\n  .audio_player .play_pause_button .triangle_1 {\n    transform: translate(0, -100%); }\n  .audio_player .play_pause_button .triangle_2 {\n    transform: translate(0, 100%); }\n  .audio_player .play_pause_button .triangle_1,\n  .audio_player .play_pause_button .triangle_2 {\n    position: absolute;\n    top: 0;\n    right: 0;\n    background-color: transparent;\n    width: 0;\n    height: 0;\n    border-right: 30px solid #333;\n    border-top: 15px solid transparent;\n    border-bottom: 15px solid transparent;\n    transition: transform 0.25s ease; }\n  .audio_player .play_pause_button .right {\n    height: 100%;\n    float: right;\n    width: 36%;\n    background-color: #fff;\n    transition: all 0.25s ease; }\n  .audio_player .play_pause_button.paused .left {\n    width: 50%; }\n  .audio_player .play_pause_button.paused .right {\n    width: 50%; }\n  .audio_player .play_pause_button.paused .triangle_1 {\n    transform: translate(0, -50%); }\n  .audio_player .play_pause_button.paused .triangle_2 {\n    transform: translate(0, 50%); }\n  .audio_player .skip_button.back {\n    transform: rotate(180deg); }\n  .audio_player .skip_button .skip_button_inner {\n    display: flex;\n    flex-direction: row; }\n  .audio_player .skip_button .right_facing_triangle {\n    width: 0;\n    height: 0;\n    border-left: 16px solid #fff;\n    border-top: 16px solid transparent;\n    border-bottom: 16px solid transparent; }\n  @media screen and (min-width: 370px) {\n    .audio_player .audio_info {\n      display: initial;\n      animation: marquee5 10s cubic-bezier(0, 0.23, 0.6, -0.09) infinite; } }\n  @media screen and (min-width: 450px) {\n    .audio_player .audio_info {\n      animation: marquee4 10s cubic-bezier(0, 0.23, 0.7, -0.09) infinite; } }\n  @media screen and (min-width: 550px) {\n    .audio_player .audio_info {\n      animation: marquee3 10s cubic-bezier(0, 0.23, 0.85, -0.09) infinite; } }\n  @media screen and (min-width: 650px) {\n    .audio_player .audio_info {\n      animation: marquee2 10s cubic-bezier(0, 0.23, 1, -0.09) infinite; } }\n  @media screen and (min-width: 720px) {\n    .audio_player .audio_info {\n      animation: initial; } }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 184 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0,
+		styleElementsInsertedAtTop = [];
+
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+		// By default, add <style> tags to the bottom of <head>.
+		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+
+	function insertStyleElement(options, styleElement) {
+		var head = getHeadElement();
+		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+		if (options.insertAt === "top") {
+			if(!lastStyleElementInsertedAtTop) {
+				head.insertBefore(styleElement, head.firstChild);
+			} else if(lastStyleElementInsertedAtTop.nextSibling) {
+				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+			} else {
+				head.appendChild(styleElement);
+			}
+			styleElementsInsertedAtTop.push(styleElement);
+		} else if (options.insertAt === "bottom") {
+			head.appendChild(styleElement);
+		} else {
+			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		}
+	}
+
+	function removeStyleElement(styleElement) {
+		styleElement.parentNode.removeChild(styleElement);
+		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+		if(idx >= 0) {
+			styleElementsInsertedAtTop.splice(idx, 1);
+		}
+	}
+
+	function createStyleElement(options) {
+		var styleElement = document.createElement("style");
+		styleElement.type = "text/css";
+		insertStyleElement(options, styleElement);
+		return styleElement;
+	}
+
+	function createLinkElement(options) {
+		var linkElement = document.createElement("link");
+		linkElement.rel = "stylesheet";
+		insertStyleElement(options, linkElement);
+		return linkElement;
+	}
+
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement(options));
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement(options);
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement(options);
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+			};
+		}
+
+		update(obj);
+
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+
+	var replaceText = (function () {
+		var textStore = [];
+
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var sourceMap = obj.sourceMap;
+
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+
+		var blob = new Blob([css], { type: "text/css" });
+
+		var oldSrc = linkElement.href;
+
+		linkElement.href = URL.createObjectURL(blob);
+
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
 
 /***/ }
 /******/ ]);

@@ -12,9 +12,15 @@ class shortcodes {
 
 	}
 
-	public function main_workout_output() {
+	public function main_workout_output( $atts ) {
 
-		return '<div id="dailyworkout">Hello World</div>';
+		$a = shortcode_atts( ['id' => null ], $atts );
+
+		if  ( ! is_null( $a[ 'id' ] ) ) {
+			return '<div id="dailyworkout-wrapper" data-dwid="' . $a['id'] . '"><div id="dailyworkout"></div></div>';
+		}
+
+
 
 	}
 }

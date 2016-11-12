@@ -37,7 +37,7 @@ class scripts {
 		//wp_register_style( start::SLUG . '-bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', '3.3.7' );
 		//wp_register_style( start::SLUG, $this->url . 'css/book-reviews-ui.css', [ start::SLUG . '-bootstrap' ], $this->version );
 
-		wp_register_script( 'dailyworkoutJS', $this->url . 'index.js', [], $this->version, true  );
+		wp_register_script( 'dailyworkoutJS', $this->url . 'index.js', ['jquery'], $this->version, true  );
 	}
 
 	/**

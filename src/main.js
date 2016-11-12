@@ -1,12 +1,8 @@
-alert('working');
+import React from 'react';
+import { render } from 'react-dom';
 
-import React from "react";
-import ReactDOM from 'react-dom';
+import App from './components/App';
 
-class HelloWorld extends React.Component {
-	render() {
-		return <h1>Hello React</h1>
-	}
-}
 
-ReactDOM.render( <HelloWorld />, document.querySelector('#dailyworkout'));
+
+render( <App />, document.querySelector('#dailyworkout'));
