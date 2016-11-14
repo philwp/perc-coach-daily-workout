@@ -122,8 +122,11 @@ class editor {
 	}
 
 	protected function available_exercises( $post_type ) {
-
-		$available_exercises = get_posts( [ 'post_type' => $post_type ] );
+		$args = [
+			'post_type' => $post_type,
+			'numberposts' => -1
+		];
+		$available_exercises = get_posts( $args );
 		$exercise_array = [];
 
 		foreach ( $available_exercises as $exercise ) {
